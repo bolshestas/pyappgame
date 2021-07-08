@@ -41,24 +41,23 @@ lastMove = "right"
 
 
 class projectile():
-    def __init__(self, x, t, radius, color, facing):
+    def __init__(self, x, y, radius, color, facing):
         self.x = x
         self.y = y
         self.radius = radius
         self.color = color
         self.facing = facing
-        self.vel = 8 * facing
+        self.vel = 15 * facing
 
     def draw(self, win):
-        pygame.draw.circle(win, self.color, (self.x, self.y),
-        self.radius)
+        pygame.draw.circle(win, self.color, (self.x, self.y), self.radius)
 
 
 def drawWindow():
     global animCount
     win.blit(bg, (0, 0))
 
-    if animCount +1 >= 30:
+    if animCount + 1 >= 30:
         animCount = 0
     
     if left:
@@ -89,8 +88,8 @@ while run:
         if bullet.x < 500 and bullet.x > 0:
             bullet.x += bullet.vel
         else:
-            bullet.pop(bullets.index(bullet))
-# Я остановился тут ^ ---------------------------------------
+            bullets.pop(bullets.index(bullet))
+
 # Передвижение объектов
     keys = pygame.key.get_pressed()
 
@@ -100,8 +99,8 @@ while run:
         else:
             facing = -1
         if len(bullets) < 5:
-            bullets.append(projectile(round(x + width // 2), 
-            round(y + height // 2), 5, (255, 0, 0), facing))
+            bullets.append(projectile(round(x + width // 2), round(y + 
+            height // 2), 5, (255, 0, 0), facing))
 
     if keys[pygame.K_a] and x > 5:
         x -= speed
